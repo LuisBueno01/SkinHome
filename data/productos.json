@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "name": "SKIN1004 - Crema Facial Madagascar Centella Probio-Cica",
+    "category": "cremas",
+    "price": 422,
+    "description": "Crema vegana enriquecida con Probio-Cica. #3 en cremas faciales.",
+    "image": "imgv1/centella.jpg",
+    "badge": "Best Seller"
+  },
+  {
+    "id": 2,
+    "name": "Purito Seoul - Gel Crema Facial Oat-In de Avena",
+    "category": "cremas",
+    "price": 340,
+    "description": "Crema en gel refrescante de textura ligera que se absorbe al instante.",
+    "image": "imgv1/purito.jpg",
+    "badge": "Nuevo"
+  },
+  {
+    "id": 3,
+    "name": "SKIN1004 - Mascarilla de Arcilla Madagascar Centella",
+    "category": "mascarillas",
+    "price": 345,
+    "description": "Mascarilla en formato barra para aplicación rápida y limpia. #1 en mascarillas.",
+    "image": "imgv1/skin1004.jpg",
+    "badge": "#1 Ventas"
+  },
+  {
+    "id": 4,
+    "name": "Numbuzin - No.1 Pantothenic B5 Active Polvo Secante",
+    "category": "tratamientos",
+    "price": 196,
+    "description": "Polvo secante para tratar imperfecciones de forma inmediata.",
+    "image": "imgv1/talco.jpg",
+    "badge": ""
+  },
+  {
+    "id": 5,
+    "name": "Numbuzin - No. 5 Pads Glutathione Vitamine Niacinamide",
+    "category": "tonicos",
+    "price": 550,
+    "description": "Contenedor con 70 pads de algodón 100% puro.",
+    "image": "imgv1/numbuzin.jpg",
+    "badge": "Popular"
+  },
+  {
+    "id": 6,
+    "name": "Tirtir - Milk Skin Toner",
+    "category": "tonicos",
+    "price": 610,
+    "description": "Tónico facial altamente concentrado. #1 en su categoría.",
+    "image": "imgv1/tirtir.jpg",
+    "badge": "#1 Ventas"
+  },
+  {
+    "id": 7,
+    "name": "Tirtir - Milk Skin Toner (Mini)",
+    "category": "tonicos",
+    "price": 146,
+    "description": "Versión mini del tónico más vendido. Ideal para viajar.",
+    "image": "imgv1/tirtir.jpg",
+    "badge": "Viaje"
+  },
+  {
+    "id": 8,
+    "name": "Celimax - Mate Protector Solar en Barra",
+    "category": "proteccion",
+    "price": 298,
+    "description": "Protector solar con acabado mate y suave de larga duración.",
+    "image": "imgv1/matebarra.jpg",
+    "badge": "Nuevo"
+  },
+  {
+    "id": 9,
+    "name": "Arencia - Limpiador Facial Fresh Green Rice Mochi",
+    "category": "limpiadores",
+    "price": 397,
+    "description": "Producto 3 en 1: limpiador, exfoliante suave y mascarilla facial.",
+    "image": "imgv1/arencia.png",
+    "badge": "3 en 1"
+  },
+  {
+    "id": 10,
+    "name": "Celimax - Sérum Facial Vita-A Retinal",
+    "category": "serums",
+    "price": 274,
+    "description": "Sérum #1 en su categoría, enfocado en firmeza y elasticidad.",
+    "image": "imgv1/celimax.jpg",
+    "badge": "#1 Sérum"
+  },
+  {
+    "id": 11,
+    "name": "Jumiso - Niacinamide 20 Sérum Facial",
+    "category": "serums",
+    "price": 422,
+    "description": "Sérum refinador de poros y corrector de manchas oscuras.",
+    "image": "imgv1/jumiso.jpg",
+    "badge": "Poros"
+  },
+  {
+    "id": 12,
+    "name": "SKIN1004 - Ampolla Madagascar Centella Asiática (Mini)",
+    "category": "serums",
+    "price": 198,
+    "description": "Ampolla #3 en ventas, diseñada para reparar y calmar la piel.",
+    "image": "imgv1/skin1004.jpg",
+    "badge": "Mini"
+  },
+  {
+    "id": 13,
+    "name": "Ksecret Seoul 1988 - Eye Cream Retinal + Fermented Bean",
+    "category": "ojos",
+    "price": 330,
+    "description": "Crema para contorno de ojos #1, ideal para pieles maduras.",
+    "image": "imgv1/19881.jpg",
+    "badge": "#1 Ojos"
+  },
+  {
+    "id": 14,
+    "name": "Ksecret Seoul 1988 - Crema Facial Retinal 1% + Arroz Fermentado",
+    "category": "cremas",
+    "price": 410,
+    "description": "Crema antienvejecimiento de textura suave y rápida absorción.",
+    "image": "imgv1/1980.jpg",
+    "badge": "Anti-age"
+  },
+  {
+    "id": 15,
+    "name": "Medicube - PDRN Pink Collagen Capsule Cream",
+    "category": "cremas",
+    "price": 499,
+    "description": "Crema hidratante en cápsulas, una de las más vendidas de la marca.",
+    "image": "imgv1/medicube.jpg",
+    "badge": "Popular"
+  },
+  {
+    "id": 16,
+    "name": "Medipeel - Peptide 9 Volume Lif-Tox Eye Cream",
+    "category": "ojos",
+    "price": 312,
+    "description": "Crema con aplicador metálico para masaje que potencia el efecto lifting.",
+    "image": "imgv1/medipe.jpg",
+    "badge": "Lifting"
+  },
+  {
+    "id": 17,
+    "name": "Laneige - Mascarilla Labial para Dormir MINI (Berry)",
+    "category": "labios",
+    "price": 120,
+    "description": "Mascarilla nocturna #1 en cuidado labial.",
+    "image": "imgv1/laneige.jpg",
+    "badge": "#1 Labios"
+  },
+  {
+    "id": 18,
+    "name": "Laneige - Mascarilla Labial MINI Peptide 9 Volume & Tension",
+    "category": "labios",
+    "price": 435,
+    "description": "Tratamiento premium con efecto lifting visible para labios.",
+    "image": "imgv1/laneige.jpg",
+    "badge": "Premium"
+  }
+]
