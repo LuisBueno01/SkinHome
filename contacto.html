@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Contacto – Skin Home | K-Beauty</title>
+    <meta name="description" content="Contáctanos para asesoría personalizada, dudas sobre productos o seguimiento de pedidos.">
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-contact">
+
+    <!-- Header compartido -->
+    <header class="site-header">
+        <a class="logo" href="index.html">Skin <span>Home</span></a>
+        
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link" data-page="home">Catálogo</a></li>
+                <li><a href="nosotros.html" class="nav-link" data-page="about">Nosotros</a></li>
+                <li><a href="contacto.html" class="nav-link active" data-page="contact" aria-current="page">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="nav-actions">
+            <button class="cart-trigger" onclick="toggleCart()" aria-label="Abrir carrito">
+                <i class="fas fa-bag-shopping"></i>
+                <span class="cart-text">Mi bolsa</span>
+                <span class="cart-count">0</span>
+            </button>
+        </div>
+        
+        <button class="mobile-toggle" aria-label="Menú" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- ═══ HERO INTERNO ═══ -->
+    <section class="page-hero page-hero-contact">
+        <div class="page-hero-content">
+            <p class="hero-eyebrow">✦ Contáctanos</p>
+            <h1 class="hero-title">¿Tienes alguna <em>pregunta</em>?</h1>
+            <p class="hero-sub">Estamos aquí para ayudarte a encontrar los productos perfectos para tu rutina de skincare.</p>
+        </div>
+    </section>
+
+    <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+    <main class="contact-main">
+        
+        <!-- Sección: Información de Contacto -->
+        <section class="contact-info-section">
+            <div class="container">
+                <div class="contact-grid">
+                    
+                    <!-- Cards de contacto -->
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp</strong>
+                                <a href="https://wa.me/522203092297">+52 229 711 1160</a>
+                                <small>Respuesta en menos de 2 horas</small>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <a href="mailto:hola@skinhome.mx">hola@skinhome.mx</a>
+                                <small>Te respondemos en 24-48 hrs</small>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Horario de atención</strong>
+                                <span>Las 24 horas del dia</span>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-truck"></i>
+                            <div>
+                                <strong>Envíos</strong>
+                                <span>A todo México 🇲🇽<br></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Redes sociales -->
+                        <div class="social-links">
+                            <strong>Síguenos</strong>
+                            <div class="social-icons">
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulario de contacto -->
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Nombre <span class="req">*</span></label>
+                                <input type="text" id="contactName" name="name" placeholder="Tu nombre" required 
+                                       pattern="[\p{L}\p{M}\s]+" title="Solo letras y espacios">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email <span class="req">*</span></label>
+                                <input type="email" id="contactEmail" name="email" placeholder="tu@correo.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Asunto</label>
+                            <select id="contactSubject" name="subject">
+                                <option value="">Selecciona una opción</option>
+                                <option value="producto">Duda sobre un producto</option>
+                                <option value="rutina">Asesoría de rutina</option>
+                                <option value="pedido">Seguimiento de pedido</option>
+                                <option value="devolucion">Devolución o cambio</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Mensaje <span class="req">*</span></label>
+                            <textarea id="contactMessage" name="message" rows="5" 
+                                      placeholder="Cuéntanos, ¿en qué podemos ayudarte?" required></textarea>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="privacy" required>
+                                <span>Acepto la <a href="#" target="_blank">política de privacidad</a> y el tratamiento de mis datos.</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary btn-contact">
+                            <i class="fas fa-paper-plane"></i> Enviar mensaje
+                        </button>
+                        <p class="form-note"><small>🔒 Tus datos están protegidos. Nunca compartimos tu información.</small></p>
+                    </form>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Preguntas Frecuentes -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title-center">Preguntas <em>frecuentes</em></h2>
+                <div class="faq-grid">
+                    <details class="faq-item">
+                        <summary>¿Hacen envíos a todo México?</summary>
+                        <p>Sí, enviamos a todo el país. Los tiempos de entrega son de 3-7 días hábiles.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Cómo sé qué productos son para mi tipo de piel?</summary>
+                        <p>Cada producto incluye una descripción detallada de para qué tipo de piel es recomendado. También puedes escribirnos por WhatsApp para una asesoría personalizada gratuita.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Aceptan devoluciones?</summary>
+                        <p>Sí, aceptamos devoluciones dentro de los 15 días posteriores a la recepción, siempre que el producto esté sin abrir y en su empaque original.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Los productos son originales?</summary>
+                        <p>¡Absolutamente! Trabajamos directamente con distribuidores autorizados de cada marca coreana. Todos nuestros productos son 100% originales y con fecha de caducidad vigente.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mapa / Ubicación (opcional) -->
+        <section class="location-section">
+            <div class="container">
+                <div class="location-card">
+                    <div class="location-info">
+                        <h3>Visítanos</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Boca de rio, Veracruz</p>
+                        <p><small>Atención principalmente en línea con envío a todo el país.</small></p>
+                    </div>
+                    <div class="location-map">
+                        <!-- Placeholder para mapa - reemplazar con iframe de Google Maps si es necesario -->
+                        <div class="map-placeholder">
+                            <i class="fas fa-map"></i>
+                            <span>Mapa de ubicación</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <strong>Skin Home</strong>
+                <span>K-Beauty con envío a todo México</span>
+            </div>
+            <div class="footer-links">
+                <a href="nosotros.html">Nosotros</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="https://wa.me/522203092297" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <small>© 2024 Skin Home. Todos los derechos reservados.</small>
+        </div>
+    </footer>
+
+    <!-- Cart Modal (opcional) -->
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-backdrop" onclick="toggleCart()"></div>
+        <div class="cart-drawer">
+            <div class="cart-header">
+                <h2><i class="fas fa-bag-shopping"></i> Mi bolsa</h2>
+                <button class="close-btn" onclick="toggleCart()" aria-label="Cerrar carrito">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="emptyCart">
+                <i class="fas fa-bag-shopping"></i>
+                <p>Tu bolsa está vacía</p>
+                <small>¡Visita nuestro catálogo para comenzar!</small>
+            </div>
+            <div id="cartItems"></div>
+            <div id="cartFooter">
+                <div class="cart-total">
+                    <span class="cart-total-label">Total</span>
+                    <span id="totalAmount">$0</span>
+                </div>
+                <button class="btn-primary" onclick="window.location.href='index.html'">
+                    <i class="fas fa-shopping-bag"></i> Ir al catálogo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js" defer></script>
+    
+    <!-- Scripts específicos para contacto -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Marcar página activa
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+            
+            // Manejo del formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        name: document.getElementById('contactName').value.trim(),
+                        email: document.getElementById('contactEmail').value.trim(),
+                        subject: document.getElementById('contactSubject').value,
+                        message: document.getElementById('contactMessage').value.trim()
+                    };
+                    
+                    // Validación simple
+                    if (!formData.name || !formData.email || !formData.message) {
+                        showNotification('⚠️ Por favor completa los campos requeridos');
+                        return;
+                    }
+                    
+                    // Crear mensaje para WhatsApp
+                    const subjectText = formData.subject || 'Consulta general';
+                    const whatsappMsg = `
+🌸 *Skin Home - Nuevo Mensaje* 🌸
+
+👤 *De:* ${formData.name}
+📧 *Email:* ${formData.email}
+📋 *Asunto:* ${subjectText}
+
+💬 *Mensaje:*
+${formData.message}
+                    `.trim();
+                    
+                    // Abrir WhatsApp
+                    const whatsappUrl = `https://wa.me/522203092297?text=${encodeURIComponent(whatsappMsg)}`;
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Resetear formulario
+                    contactForm.reset();
+                    showNotification('✅ Mensaje listo para enviar por WhatsApp');
+                });
+            }
+            
+            // Accordion para FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('toggle', function() {
+                    // Cerrar otros items al abrir uno (opcional)
+                    document.querySelectorAll('.faq-item').forEach(other => {
+                        if (other !== this) other.removeAttribute('open');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

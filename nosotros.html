@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sobre Nosotros – Skin Home | K-Beauty</title>
+    <meta name="description" content="Conoce la historia de Skin Home y nuestra pasión por el skincare coreano.">
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-about">
+
+    <!-- Header compartido -->
+    <header class="site-header">
+        <a class="logo" href="index.html">Skin <span>Home</span></a>
+        
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link" data-page="home">Catálogo</a></li>
+                <li><a href="nosotros.html" class="nav-link active" data-page="about" aria-current="page">Nosotros</a></li>
+                <li><a href="contacto.html" class="nav-link" data-page="contact">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="nav-actions">
+            <button class="cart-trigger" onclick="toggleCart()" aria-label="Abrir carrito">
+                <i class="fas fa-bag-shopping"></i>
+                <span class="cart-text">Mi bolsa</span>
+                <span class="cart-count">0</span>
+            </button>
+        </div>
+        
+        <button class="mobile-toggle" aria-label="Menú" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- ═══ HERO INTERNO ═══ -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <p class="hero-eyebrow">✦ Nuestra Historia</p>
+            <h1 class="hero-title">Sobre <em>Skin Home</em></h1>
+            <p class="hero-sub">Más que una tienda, somos tu aliado en el cuidado de la piel con lo mejor de Corea.</p>
+        </div>
+    </section>
+
+    <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+    <main class="about-main">
+        
+        <!-- Sección: Nuestra Historia -->
+        <section class="about-section">
+            <div class="about-container">
+                <div class="about-content">
+                    <h2 class="about-title">Nuestra <em>historia</em></h2>
+                    <p class="about-text">
+                        Skin Homem somos un espacio especializado en el cuidado de la piel que combina productos de uso  diario basado en 
+                        <strong>K-Beauty</strong>, esa filosofía coreana que entiende el skincare como un ritual 
+                        de amor propio, no como una obligaciónm enfocado en tratamiento faciales y aparatologia profesionales,diseñados para mejorar
+                        la salud, textura y aparencia de tu piel de forma progresiva y efectiva 
+                    </p>
+                    <p class="about-text">
+                        Cada producto en nuestro catálogo pasa por un proceso riguroso de selección. Analizamos 
+                        ingredientes, formulaciones, testimonios reales y el compromiso ético de cada marca antes 
+                        de decidir incluirlo en nuestra colección.
+                    </p>
+                    <p class="about-text">
+                        Creemos que la piel sana es el mejor maquillaje, y que los ingredientes naturales, 
+                        combinados con la innovación científica coreana, pueden transformar tu rutina diaria 
+                        en un momento de bienestar.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-inner">
+                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600" 
+                             alt="Productos de skincare coreano organizados" 
+                             loading="lazy"
+                             width="400" height="500">
+                        <div class="about-badge">
+                            <i class="fas fa-star"></i>
+                            <span>+1 años cuidando tu piel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Nuestros Valores -->
+        <section class="values-section">
+            <div class="container">
+                <h2 class="section-title-center">Nuestros <em>valores</em></h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Ingredientes Conscientes</h3>
+                        <p>Priorizamos fórmulas con extractos botánicos, libres de parabenos, sulfatos y fragancias artificiales.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Ciencia + Tradición</h3>
+                        <p>Combinamos la sabiduría ancestral coreana con investigación dermatológica de vanguardia.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Cruelty-Free</h3>
+                        <p>Todas nuestras marcas están certificadas como libres de crueldad animal y comprometidas con prácticas éticas.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3>Sostenibilidad</h3>
+                        <p>Trabajamos con marcas que minimizan su impacto ambiental mediante empaques reciclables y producción responsable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+
+        <!-- CTA: Invitación a comprar -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>¿Lista para transformar tu piel?</h2>
+                <p>Descubre productos que realmente funcionan, seleccionados con amor y ciencia.</p>
+                <a href="index.html" class="btn-primary">
+                    Ver catálogo <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <strong>Skin Home</strong>
+                <span>K-Beauty con envío a todo México</span>
+            </div>
+            <div class="footer-links">
+                <a href="nosotros.html">Nosotros</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="https://wa.me/522203092297" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <small>© 2024 Skin Home. Todos los derechos reservados.</small>
+        </div>
+    </footer>
+
+    <!-- Cart Modal (opcional, si quieres que funcione en todas las páginas) -->
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-backdrop" onclick="toggleCart()"></div>
+        <div class="cart-drawer">
+            <div class="cart-header">
+                <h2><i class="fas fa-bag-shopping"></i> Mi bolsa</h2>
+                <button class="close-btn" onclick="toggleCart()" aria-label="Cerrar carrito">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="emptyCart">
+                <i class="fas fa-bag-shopping"></i>
+                <p>Tu bolsa está vacía</p>
+                <small>¡Visita nuestro catálogo para comenzar!</small>
+            </div>
+            <div id="cartItems"></div>
+            <div id="cartFooter">
+                <div class="cart-total">
+                    <span class="cart-total-label">Total</span>
+                    <span id="totalAmount">$0</span>
+                </div>
+                <button class="btn-primary" onclick="window.location.href='index.html'">
+                    <i class="fas fa-shopping-bag"></i> Ir al catálogo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js" defer></script>
+    
+    <!-- Script para página activa -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
