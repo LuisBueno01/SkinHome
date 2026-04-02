@@ -6,23 +6,14 @@
     <title>Skin Home – K-Beauty & Skincare | Catálogo</title>
     <meta name="description" content="Productos de skincare coreano seleccionados. Cremas, sérums, tónicos y más.">
     
-    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Preload crítico -->
-    <link rel="preload" href="styles.css" as="style">
 </head>
 <body>
 
-    <!-- Header compartido -->
     <header class="site-header">
         <a class="logo" href="index.html">Skin <span>Home</span></a>
         
@@ -47,7 +38,7 @@
         </button>
     </header>
 
-    <!-- ═══ HERO ═══ -->
+    <!-- HERO -->
     <section class="hero">
         <div class="petal petal-1"></div>
         <div class="petal petal-2"></div>
@@ -62,29 +53,37 @@
         </div>
     </section>
 
-    <!-- ═══ CONTROLS ═══ -->
-    <div class="controls-bar" id="catalogo">
-        <div class="controls-inner">
-            <div class="search-wrap">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Buscar por nombre, ingrediente…" aria-label="Buscar productos">
-            </div>
-            <div class="filters" role="tablist" aria-label="Filtros de categoría">
-                <button class="filter-btn active" data-category="all" role="tab" aria-selected="true">Todo</button>
-                <button class="filter-btn" data-category="cremas" role="tab">Cremas</button>
-                <button class="filter-btn" data-category="serums" role="tab">Sérums</button>
-                <button class="filter-btn" data-category="tonicos" role="tab">Tónicos</button>
-                <button class="filter-btn" data-category="mascarillas" role="tab">Mascarillas</button>
-                <button class="filter-btn" data-category="tratamientos" role="tab">Tratamientos</button>
-                <button class="filter-btn" data-category="limpiadores" role="tab">Limpiadores</button>
-                <button class="filter-btn" data-category="proteccion" role="tab">Solar</button>
-                <button class="filter-btn" data-category="ojos" role="tab">Ojos</button>
-                <button class="filter-btn" data-category="labios" role="tab">Labios</button>
-            </div>
+ <!-- CONTROLS -->
+<div class="controls-bar" id="catalogo">
+    <div class="controls-inner">
+        <!-- BARRA DE BÚSQUEDA FIJA -->
+        <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Buscar por nombre, ingrediente…" aria-label="Buscar productos">
+        </div>
+        
+        <!-- FILTROS COMO DROPDOWN -->
+        <div class="filter-dropdown">
+            <label for="categorySelect" class="filter-label">
+                <i class="fas fa-filter"></i> Filtrar por:
+            </label>
+            <select id="categorySelect" class="filter-select">
+                <option value="all">Todas las categorías</option>
+                <option value="cremas">Cremas</option>
+                <option value="serums">Sérums</option>
+                <option value="tonicos">Tónicos</option>
+                <option value="mascarillas">Mascarillas</option>
+                <option value="tratamientos">Tratamientos</option>
+                <option value="limpiadores">Limpiadores</option>
+                <option value="proteccion">Solar</option>
+                <option value="ojos">Ojos</option>
+                <option value="labios">Labios</option>
+            </select>
         </div>
     </div>
+</div>
 
-    <!-- ═══ SHOP ═══ -->
+    <!-- SHOP -->
     <section class="shop-section">
         <div class="section-header">
             <h2 class="section-title">Catálogo</h2>
@@ -93,7 +92,7 @@
         <div id="productsGrid" aria-live="polite"></div>
     </section>
 
-    <!-- ═══ FOOTER ═══ -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand">
@@ -113,7 +112,74 @@
         </div>
     </footer>
 
-    <!-- ═══ CART MODAL ═══ (Solo en páginas que lo necesitan) -->
+    <!-- ═══ PRODUCT DETAIL MODAL ═══ -->
+    <div id="productModal" class="product-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+        <div class="product-modal-backdrop" onclick="closeProductModal()"></div>
+        <div class="product-modal-panel">
+            <button class="product-modal-close close-btn" onclick="closeProductModal()" aria-label="Cerrar">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="product-modal-body">
+                <!-- Imagen -->
+                <div class="product-modal-image">
+                    <img id="modalProductImage" src="" alt="" loading="lazy">
+                    <span id="modalProductBadge" class="product-badge" style="display:none;"></span>
+                </div>
+
+                <!-- Info -->
+                <div class="product-modal-info">
+                    <span id="modalProductCategory" class="product-category"></span>
+                    <h2 id="modalProductTitle" class="product-modal-title"></h2>
+                    <p id="modalProductBrand" class="product-modal-brand"></p>
+
+                    <div class="product-modal-price-row">
+                        <span id="modalProductPrice" class="product-modal-price"></span>
+                        <span id="modalProductVolume" class="product-modal-volume"></span>
+                    </div>
+
+                    <!-- Descripción larga -->
+                    <div class="product-modal-section">
+                        <h3><i class="fas fa-leaf"></i> Descripción</h3>
+                        <p id="modalProductDesc"></p>
+                    </div>
+
+                    <!-- Beneficios -->
+                    <div class="product-modal-section" id="modalBenefitsSection">
+                        <h3><i class="fas fa-star"></i> Beneficios</h3>
+                        <ul id="modalProductBenefits" class="modal-list"></ul>
+                    </div>
+
+                    <!-- Modo de uso -->
+                    <div class="product-modal-section" id="modalUsageSection">
+                        <h3><i class="fas fa-hand-sparkles"></i> Cómo usarlo</h3>
+                        <p id="modalProductUsage"></p>
+                    </div>
+
+                    <!-- Ingredientes clave -->
+                    <div class="product-modal-section" id="modalIngredientsSection">
+                        <h3><i class="fas fa-flask"></i> Ingredientes clave</h3>
+                        <div id="modalProductIngredients" class="modal-tags"></div>
+                    </div>
+
+                    <!-- Tipo de piel -->
+                    <div class="product-modal-section" id="modalSkinTypeSection">
+                        <h3><i class="fas fa-user-circle"></i> Tipo de piel</h3>
+                        <div id="modalProductSkinType" class="modal-tags"></div>
+                    </div>
+
+                    <!-- Botón agregar -->
+                    <div class="product-modal-actions">
+                        <button class="btn-primary product-modal-add" id="modalAddToCart">
+                            <i class="fas fa-bag-shopping"></i> Agregar a mi bolsa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CART MODAL ═══ -->
     <div id="cartModal" class="modal-overlay">
         <div class="modal-backdrop" onclick="toggleCart()"></div>
         <div class="cart-drawer">
@@ -207,13 +273,9 @@
         </div>
     </div>
 
-    <!-- Script -->
     <script src="script.js" defer></script>
-    
-    <!-- Script para destacar página activa -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Marcar enlace activo según página actual
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             document.querySelectorAll('.nav-link').forEach(link => {
                 const linkPage = link.getAttribute('href');
@@ -225,7 +287,124 @@
                     link.removeAttribute('aria-current');
                 }
             });
+
+            // Mobile menu toggle
+            const toggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('.main-nav');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    const isOpen = nav.classList.toggle('active');
+                    toggle.setAttribute('aria-expanded', isOpen);
+                    toggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+                });
+                // Cerrar al hacer clic en enlace
+                nav.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        nav.classList.remove('active');
+                        toggle.setAttribute('aria-expanded', 'false');
+                        toggle.querySelector('i').className = 'fas fa-bars';
+                    });
+                });
+            }
         });
+
+        // ── PRODUCT MODAL ──────────────────────────────────────
+        function openProductModal(productId) {
+            // Busca el producto en el array global de productos (definido en script.js)
+            if (typeof products === 'undefined') return;
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('productModal');
+
+            // Imagen
+            const img = document.getElementById('modalProductImage');
+            img.src = product.image || '';
+            img.alt = product.name;
+
+            // Badge
+            const badge = document.getElementById('modalProductBadge');
+            if (product.badge) {
+                badge.textContent = product.badge;
+                badge.style.display = 'inline-flex';
+            } else {
+                badge.style.display = 'none';
+            }
+
+            // Info básica
+            document.getElementById('modalProductCategory').textContent = product.category || '';
+            document.getElementById('modalProductTitle').textContent = product.name || '';
+            document.getElementById('modalProductBrand').textContent = product.brand || '';
+            document.getElementById('modalProductPrice').textContent = '$' + (product.price || '');
+            document.getElementById('modalProductVolume').textContent = product.volume || '';
+
+            // Descripción larga (usa longDescription si existe, si no description)
+            document.getElementById('modalProductDesc').textContent = product.longDescription || product.description || '';
+
+            // Beneficios
+            const benefitsSection = document.getElementById('modalBenefitsSection');
+            const benefitsList = document.getElementById('modalProductBenefits');
+            if (product.benefits && product.benefits.length) {
+                benefitsList.innerHTML = product.benefits.map(b => `<li><i class="fas fa-check"></i> ${b}</li>`).join('');
+                benefitsSection.style.display = 'block';
+            } else {
+                benefitsSection.style.display = 'none';
+            }
+
+            // Modo de uso
+            const usageSection = document.getElementById('modalUsageSection');
+            if (product.usage) {
+                document.getElementById('modalProductUsage').textContent = product.usage;
+                usageSection.style.display = 'block';
+            } else {
+                usageSection.style.display = 'none';
+            }
+
+            // Ingredientes clave
+            const ingredientsSection = document.getElementById('modalIngredientsSection');
+            const ingredientsDiv = document.getElementById('modalProductIngredients');
+            if (product.ingredients && product.ingredients.length) {
+                ingredientsDiv.innerHTML = product.ingredients.map(i => `<span class="modal-tag">${i}</span>`).join('');
+                ingredientsSection.style.display = 'block';
+            } else {
+                ingredientsSection.style.display = 'none';
+            }
+
+            // Tipo de piel
+            const skinTypeSection = document.getElementById('modalSkinTypeSection');
+            const skinTypeDiv = document.getElementById('modalProductSkinType');
+            if (product.skinType && product.skinType.length) {
+                skinTypeDiv.innerHTML = product.skinType.map(s => `<span class="modal-tag modal-tag--skin">${s}</span>`).join('');
+                skinTypeSection.style.display = 'block';
+            } else {
+                skinTypeSection.style.display = 'none';
+            }
+
+            // Botón agregar
+            const addBtn = document.getElementById('modalAddToCart');
+            addBtn.onclick = () => {
+                if (typeof addToCart === 'function') addToCart(productId);
+                closeProductModal();
+            };
+
+            // Abrir modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Cerrar con Escape
+            document.addEventListener('keydown', handleModalEsc);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', handleModalEsc);
+        }
+
+        function handleModalEsc(e) {
+            if (e.key === 'Escape') closeProductModal();
+        }
     </script>
 </body>
 </html>
