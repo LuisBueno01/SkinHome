@@ -10,20 +10,64 @@ let cart = [];
 let orderNumber = '';
 let orderData = {};
 
+
+
 // ═══════════════════════════════════════════════════════════
 // CARGAR PRODUCTOS DESDE JSON
 // ═══════════════════════════════════════════════════════════
 
+// ═════ FUNCIÓN AUXILIAR: NORMALIZAR PRODUCTO ═════
+// Coloca esto ANTES de loadProductsFromJSON (al inicio de tu script.js)
+function normalizeProduct(p) {
+  // Helper: convertir string a array (soporta múltiples separadores)
+  const toArray = (val, separator = ',') => {
+    if (Array.isArray(val)) return val.filter(v => v?.trim());
+    if (typeof val !== 'string' || !val.trim()) return [];
+    return val
+      .split(separator)
+      .map(v => v.trim())
+      .filter(v => v.length > 2); // Evitar fragments vacíos
+  };
+
+  return {
+    ...p,
+    // ✅ Campos que pueden venir como string o array en tu JSON
+    benefits: toArray(p.benefits, /[.,;•\n]/),           // Separa por puntos, comas, bullets
+    skinType: toArray(p.skinType || p.skin_type || ''),  // Soporta "skin_type" y "skinType"
+    ingredients: toArray(p.ingredients || ''),
+    
+    // ✅ Campos opcionales con fallback inteligente
+    brand: p.brand || p.name?.split(' - ')[0]?.trim() || 'K-Beauty',
+    volume: p.volume || '',
+    longDescription: p.longDescription || p.description || '',
+    
+    // ✅ Badge seguro (null si está vacío)
+    badge: p.badge?.trim() || null,
+    
+    // ✅ Asegurar que category siempre exista
+    category: p.category || 'otros'
+  };
+}
+
+// ═════ CARGAR PRODUCTOS DESDE JSON ═════
 async function loadProductsFromJSON() {
   try {
     const response = await fetch('data/productos.json');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
     const data = await response.json();
-    console.log('✅ Productos cargados:', data.length);
-    return data;
+    
+    // ✅ Normalizar todos los productos cargados desde JSON
+    const normalized = data.map(normalizeProduct);
+    
+    console.log('✅ Productos cargados y normalizados:', normalized.length);
+    return normalized;
+    
   } catch (error) {
     console.error('❌ Error cargando productos:', error);
-    console.warn('⚠️ Usando productos de respaldo');
+    console.warn('⚠️ Usando productos de respaldo (ya normalizados)');
+    
+    // ✅ Fallback: productos de ejemplo YA normalizados
     return [
       {
         id: 1,
@@ -31,13 +75,13 @@ async function loadProductsFromJSON() {
         category: "cremas",
         brand: "SKIN1004",
         price: 422,
+        volume: "75 ml",
         description: "Crema vegana hidratante",
         longDescription: "Crema facial vegana con extracto de centella asiática que hidrata y calma la piel. Ideal para pieles sensibles.",
         benefits: ["Hidratación profunda", "Calma la irritación", "Apta para piel sensible"],
         usage: "Aplica sobre piel limpia por la mañana y noche. Da pequeños toquecitos hasta absorber.",
         ingredients: ["Centella Asiática", "Niacinamida", "Betaina"],
         skinType: ["Piel sensible", "Piel seca", "Todo tipo de piel"],
-        volume: "75 ml",
         image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400",
         badge: "Best Seller"
       },
@@ -47,20 +91,19 @@ async function loadProductsFromJSON() {
         category: "cremas",
         brand: "Purito Seoul",
         price: 340,
+        volume: "100 ml",
         description: "Gel refrescante con centella",
         longDescription: "Gel-crema ligero y refrescante formulado con centella asiática al 70%. Hidrata sin dejar sensación grasa.",
         benefits: ["Textura gel ligera", "No comedogénico", "Hidratación sin brillos"],
         usage: "Aplica como último paso de tu rutina de noche o bajo el protector solar de día.",
         ingredients: ["Centella Asiática 70%", "Ácido Hialurónico", "Glicerina"],
         skinType: ["Piel mixta", "Piel grasa", "Piel con acné"],
-        volume: "100 ml",
         image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400",
         badge: "Nuevo"
       }
-    ];
+    ].map(normalizeProduct); // ✅ También normalizar fallback por consistencia
   }
 }
-
 // ═══════════════════════════════════════════════════════════
 // LOCALSTORAGE — CARRITO
 // ═══════════════════════════════════════════════════════════
@@ -547,6 +590,7 @@ function renderProduct(product, index) {
   card.setAttribute('role', 'button');
   card.setAttribute('aria-label', `Ver detalle de ${product.name}`);
 
+  // HTML de la tarjeta
   card.innerHTML = `
     <div class="product-image">
       <img
@@ -563,10 +607,11 @@ function renderProduct(product, index) {
       <h3 class="product-title">${product.name}</h3>
       <p class="product-description">${product.description || ''}</p>
       <div class="product-footer">
-        <span class="product-price">${product.price}</span>
+        <span class="product-price">${product.price}</span> <!-- ✅ Agregué el signo $ -->
         <button
           class="add-to-cart"
           aria-label="Agregar ${product.name} al carrito"
+          type="button"
         >
           <i class="fas fa-plus"></i> Agregar
         </button>
@@ -574,20 +619,57 @@ function renderProduct(product, index) {
     </div>
   `;
 
-  // Botón agregar: detiene la propagación para no abrir modal
-  card.querySelector('.add-to-cart').addEventListener('click', (e) => {
-    e.stopPropagation();
-    addToCart(product.id);
+  // ✨ EFECTO BLUR (opcional)
+  const img = card.querySelector('img');
+  const imageContainer = card.querySelector('.product-image');
+  
+  if (img && imageContainer) {
+    const applyBlur = (src) => {
+      if (src && !src.includes('unsplash.com/photo-1620916566398')) {
+        imageContainer.style.setProperty('--image-blur', `url('${src}')`);
+      }
+    };
+    
+    if (img.complete && img.naturalWidth !== 0) {
+      applyBlur(img.src);
+    } else {
+      img.addEventListener('load', function() { applyBlur(this.src); }, { once: true });
+    }
+    if (img.src) applyBlur(img.src);
+  }
+
+  // 🛒 Botón "Agregar"
+  const addToCartBtn = card.querySelector('.add-to-cart');
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // ✅ Solo stopPropagation, no preventDefault
+      addToCart(product.id);
+    });
+  }
+
+  // 👆 Click en tarjeta: abre modal
+  card.addEventListener('click', (e) => {
+    // Ignorar clicks en el botón de agregar
+    if (e.target.closest('.add-to-cart')) return;
+    
+    // ✅ Eliminado e.preventDefault() innecesario
+    
+    // ✅ Verificación robusta de la función
+    if (typeof openProductModal === 'function') {
+      openProductModal(product.id);
+    } else {
+      console.error('❌ openProductModal no está definida. Revisa que script.js se cargue después del HTML.');
+    }
   });
 
-  // Click en la tarjeta abre el modal de detalle
-  card.addEventListener('click', () => openProductModal(product.id));
-
-  // Teclado: Enter / Space también abre modal
+  // ⌨️ Accesibilidad por teclado
   card.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openProductModal(product.id);
+      e.preventDefault(); // ✅ Aquí SÍ es necesario para evitar scroll con Space
+      e.stopPropagation();
+      if (typeof openProductModal === 'function') {
+        openProductModal(product.id);
+      }
     }
   });
 
@@ -977,8 +1059,6 @@ function setupBottomSheetFilters() {
 }
 
 // ═════ MODIFICAR setupEventListeners() PARA USAR EL NUEVO SISTEMA ═════
-// Reemplaza tu función setupEventListeners() existente por esta versión:
-
 function setupEventListeners() {
   // Búsqueda (ahora usa el sistema combinado)
   const searchInput = document.getElementById('searchInput');
