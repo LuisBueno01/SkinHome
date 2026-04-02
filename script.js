@@ -792,21 +792,226 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log('✨ Skin Home inicializado');
 });
 
-// Cambiar de categoría con el dropdown
-document.getElementById('categorySelect').addEventListener('change', function(e) {
-    const category = e.target.value;
-    filtrarProductos(category);
-});
+// -----
+/* ═══════════════════════════════════════════════════════════
+   FILTROS + BÚSQUEDA COMBINADOS + BOTTOM SHEET
+   ═══════════════════════════════════════════════════════════ */
 
-function filtrarProductos(category) {
-    // Tu lógica de filtrado aquí
-    console.log('Filtrando por:', category);
-    
-    // Ejemplo: actualizar botones activos si los tienes
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if(btn.dataset.category === category) {
-            btn.classList.add('active');
-        }
+// Estado global de filtros
+let filterState = {
+  category: 'all',
+  search: ''
+};
+
+// Función principal: filtra por categoría Y búsqueda simultáneamente
+function applyFiltersAndSearch() {
+  const { category, search } = filterState;
+  
+  let filtered = [...products];
+  
+  // Filtrar por categoría
+  if (category !== 'all') {
+    filtered = filtered.filter(p => p.category === category);
+  }
+  
+  // Filtrar por búsqueda
+  const term = search.toLowerCase().trim();
+  if (term) {
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(term) ||
+      (p.description || '').toLowerCase().includes(term) ||
+      (p.brand || '').toLowerCase().includes(term) ||
+      (p.ingredients || []).some(i => i.toLowerCase().includes(term)) ||
+      p.category.toLowerCase().includes(term)
+    );
+  }
+  
+  // Renderizar resultados
+  renderProducts(filtered);
+  
+  // Actualizar contador con formato "X de Y productos"
+  updateProductCountWithTotal(filtered.length, products.length);
+  
+  // Mostrar estado vacío si no hay resultados
+  if (filtered.length === 0 && (category !== 'all' || term)) {
+    showEmptyState();
+  }
+}
+
+// Actualiza contador con formato "X de Y productos"
+function updateProductCountWithTotal(visibles, total) {
+  const countEl = document.getElementById('productCount');
+  if (countEl) {
+    countEl.textContent = visibles === total 
+      ? `${total} producto${total !== 1 ? 's' : ''}` 
+      : `${visibles} de ${total} producto${total !== 1 ? 's' : ''}`;
+  }
+}
+
+// Muestra mensaje de "sin resultados"
+function showEmptyState() {
+  const grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  
+  // No agregar si ya existe o si hay productos
+  if (grid.querySelector('.empty-state') || grid.querySelectorAll('.product-card').length > 0) return;
+  
+  const empty = document.createElement('div');
+  empty.className = 'empty-state';
+  empty.innerHTML = `
+    <i class="fas fa-search"></i>
+    <p>No encontramos productos con esos criterios</p>
+    <button class="btn-outline" onclick="resetAllFilters()" style="margin-top:1rem;width:auto;">
+      <i class="fas fa-undo"></i> Limpiar filtros
+    </button>
+  `;
+  grid.appendChild(empty);
+}
+
+// Resetear todos los filtros
+function resetAllFilters() {
+  filterState = { category: 'all', search: '' };
+  
+  // Resetear UI del Bottom Sheet
+  document.querySelectorAll('.sheet-filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.category === 'all');
+  });
+  
+  // Resetear búsqueda
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = '';
+  
+  // Resetear botones originales de filtro (si existen)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.category === 'all');
+  });
+  
+  // Re-renderizar todo
+  applyFiltersAndSearch();
+}
+
+// Hacer disponible globalmente
+window.resetAllFilters = resetAllFilters;
+
+// ═════ EVENTOS BOTTOM SHEET ═════
+function setupBottomSheetFilters() {
+  const openBtn = document.getElementById('openFilters');
+  const closeBtn = document.getElementById('closeFilters');
+  const overlay = document.getElementById('filtersOverlay');
+  const applyBtn = document.getElementById('applyFilters');
+  const filterBtns = document.querySelectorAll('.sheet-filter-btn');
+  const searchInput = document.getElementById('searchInput');
+  
+  if (!openBtn || !overlay) return; // No estamos en la página de catálogo
+  
+  // Abrir/cerrar Bottom Sheet
+  const openSheet = () => {
+    overlay.classList.add('active');
+    openBtn.classList.add('active');
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  
+  const closeSheet = () => {
+    overlay.classList.remove('active');
+    openBtn.classList.remove('active');
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+  
+  openBtn.addEventListener('click', openSheet);
+  closeBtn?.addEventListener('click', closeSheet);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeSheet(); });
+  
+  // Tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeSheet();
+  });
+  
+  // Seleccionar categoría en el sheet
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterState.category = btn.dataset.category;
     });
+  });
+  
+  // Aplicar filtros desde el Bottom Sheet
+  applyBtn?.addEventListener('click', () => {
+    applyFiltersAndSearch();
+    
+    // Feedback visual
+    const original = applyBtn.innerHTML;
+    applyBtn.innerHTML = '<i class="fas fa-check"></i> ¡Aplicado!';
+    setTimeout(() => {
+      applyBtn.innerHTML = original;
+      closeSheet();
+    }, 700);
+  });
+  
+  // Búsqueda en tiempo real (combina con categoría seleccionada)
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      filterState.search = e.target.value;
+      applyFiltersAndSearch();
+    });
+  }
+  
+  // Sincronizar botones originales de filtro (para desktop)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterState.category = btn.dataset.category;
+      
+      // Actualizar UI de ambos sistemas
+      document.querySelectorAll('.filter-btn').forEach(b => 
+        b.classList.toggle('active', b === btn)
+      );
+      document.querySelectorAll('.sheet-filter-btn').forEach(b => 
+        b.classList.toggle('active', b.dataset.category === btn.dataset.category)
+      );
+      
+      applyFiltersAndSearch();
+    });
+  });
+}
+
+// ═════ MODIFICAR setupEventListeners() PARA USAR EL NUEVO SISTEMA ═════
+// Reemplaza tu función setupEventListeners() existente por esta versión:
+
+function setupEventListeners() {
+  // Búsqueda (ahora usa el sistema combinado)
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      filterState.search = e.target.value;
+      applyFiltersAndSearch();
+    });
+  }
+  
+  // Filtros originales (desktop) - sincronizados con el nuevo sistema
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterState.category = btn.dataset.category;
+      
+      // Actualizar UI de ambos sistemas
+      document.querySelectorAll('.filter-btn').forEach(b => 
+        b.classList.toggle('active', b === btn)
+      );
+      document.querySelectorAll('.sheet-filter-btn').forEach(b => 
+        b.classList.toggle('active', b.dataset.category === btn.dataset.category)
+      );
+      
+      applyFiltersAndSearch();
+    });
+  });
+  
+  // Formulario checkout
+  const checkoutForm = document.getElementById('checkoutForm');
+  if (checkoutForm) {
+    checkoutForm.addEventListener('submit', handleCheckout);
+  }
+  
+  // Inicializar Bottom Sheet
+  setupBottomSheetFilters();
 }

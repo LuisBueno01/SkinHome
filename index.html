@@ -53,33 +53,60 @@
         </div>
     </section>
 
- <!-- CONTROLS -->
+<!-- ═════ CONTROLS BAR - BÚSQUEDA FIJA + FILTROS BOTTOM SHEET ═════ -->
 <div class="controls-bar" id="catalogo">
     <div class="controls-inner">
-        <!-- BARRA DE BÚSQUEDA FIJA -->
+        
+        <!-- 🔍 BARRA DE BÚSQUEDA (FIJA, SIEMPRE VISIBLE) -->
         <div class="search-wrap">
             <i class="fas fa-search"></i>
             <input type="text" id="searchInput" placeholder="Buscar por nombre, ingrediente…" aria-label="Buscar productos">
         </div>
         
-        <!-- FILTROS COMO DROPDOWN -->
-        <div class="filter-dropdown">
-            <label for="categorySelect" class="filter-label">
-                <i class="fas fa-filter"></i> Filtrar por:
-            </label>
-            <select id="categorySelect" class="filter-select">
-                <option value="all">Todas las categorías</option>
-                <option value="cremas">Cremas</option>
-                <option value="serums">Sérums</option>
-                <option value="tonicos">Tónicos</option>
-                <option value="mascarillas">Mascarillas</option>
-                <option value="tratamientos">Tratamientos</option>
-                <option value="limpiadores">Limpiadores</option>
-                <option value="proteccion">Solar</option>
-                <option value="ojos">Ojos</option>
-                <option value="labios">Labios</option>
-            </select>
+        <!-- 🎛️ BOTÓN PARA ABRIR FILTROS (SOLO MÓVIL) -->
+        <button class="filter-trigger-mobile" id="openFilters" aria-label="Abrir filtros de categoría" aria-expanded="false">
+            <i class="fas fa-sliders-h"></i>
+            <span>Filtrar</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        
+    </div>
+</div>
+
+<!--  BOTTOM SHEET - OVERLAY DE FILTROS (Oculto por defecto) -->
+<div class="filters-sheet-overlay" id="filtersOverlay" aria-hidden="true">
+    <div class="filters-sheet" role="dialog" aria-modal="true" aria-labelledby="filtersTitle">
+        
+        <!-- Handle decorativo + Header -->
+        <div class="filters-sheet-header">
+            <div class="sheet-handle"></div>
+            <h3 id="filtersTitle">Filtrar por categoría</h3>
+            <button class="sheet-close" id="closeFilters" aria-label="Cerrar filtros">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        
+        <!-- Lista de filtros -->
+        <div class="filters-sheet-body">
+            <button class="sheet-filter-btn active" data-category="all">✨ Todas las categorías</button>
+            <button class="sheet-filter-btn" data-category="cremas">🌸 Cremas</button>
+            <button class="sheet-filter-btn" data-category="serums">💧 Sérums</button>
+            <button class="sheet-filter-btn" data-category="tonicos">🌿 Tónicos</button>
+            <button class="sheet-filter-btn" data-category="mascarillas">🧖 Mascarillas</button>
+            <button class="sheet-filter-btn" data-category="tratamientos">⚡ Tratamientos</button>
+            <button class="sheet-filter-btn" data-category="limpiadores">🧼 Limpiadores</button>
+            <button class="sheet-filter-btn" data-category="proteccion">☀️ Protección solar</button>
+            <button class="sheet-filter-btn" data-category="ojos">👁️ Contorno de ojos</button>
+            <button class="sheet-filter-btn" data-category="labios">💋 Labios</button>
+        </div>
+        
+        <!-- Footer con botón de aplicar -->
+        <div class="filters-sheet-footer">
+            <button class="btn-primary" id="applyFilters">
+                <i class="fas fa-check"></i> Aplicar filtros
+            </button>
+        </div>
+        
     </div>
 </div>
 
